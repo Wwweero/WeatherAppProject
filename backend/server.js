@@ -12,6 +12,52 @@ app.use(express.json()); // Allow JSON parsing
 
 console.log("Server script is running");
 
+
+
+const cache = {}; // In-memory cache
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
+
+app.get("/weather", async (req, res) => {
+    const city = req.query.city;
+
+    if (!city) {
+        return res.status(400).json({ error: "City parameter is required" });
+    }
+
+    const currentTime = Date.now();
+
+    // Check if city is in cache & not expired
+    if (cache[city] && currentTime - cache[city].timestamp < CACHE_DURATION) {
+        console.log(`Serving from cache: ${city}`);
+        return res.json(cache[city].data);
+    }
+
+    try {
+        // Fetch new data from OpenWeather API
+        const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
+        );
+
+        //  Save data to cache
+        cache[city] = {
+            data: response.data,
+            timestamp: Date.now(),
+        };
+
+        console.log(`Fetched new data for: ${city}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+        res.status(500).json({ error: "Failed to fetch weather data" });
+    }
+});
+
+
+
+
+
+
+
 // Weather API Route
 app.get("/weather", async (req, res) => {
     console.log("Got the request");
