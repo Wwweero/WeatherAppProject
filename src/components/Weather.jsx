@@ -48,7 +48,7 @@ const Weather = () => {
         }
         
         try{
-            const url = `http://localhost:5001/weather?city=${city}`;
+            const url = `https://weatherappproject-bzl0.onrender.com/weather?city=${city}`;
 
 
             const response = await fetch(url);
