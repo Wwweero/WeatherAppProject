@@ -36,3 +36,11 @@ body, html {
     font-size: 14px; /* Reduce text size for readability */
   }
 }
+
+
+@supports (-webkit-touch-callout: none) {
+  .weather {
+    display: block;
+  }
+}
+
