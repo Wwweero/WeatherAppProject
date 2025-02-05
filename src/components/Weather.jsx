@@ -16,8 +16,10 @@ import wind_icon from '../assets/wind.png'
 
 const Weather = () => {
 
-    const inputRef = useRef()
+    const inputRef = useRef();
     const [weatherData, setWeatherData] = useState(false);
+    
+
     
 
     const allIcons = {
@@ -64,6 +66,7 @@ const Weather = () => {
                 humidity: data.main.humidity,
                 windSpeed: data.wind.speed,
                 temperature: Math.floor(data.main.temp),
+                feelsLike: Math.floor(data.main.feels_like),
                 location: data.name,
                 icon: icon
             })
@@ -96,9 +99,6 @@ const Weather = () => {
     
     >
 
-        
-        
-
 
         <motion.div 
         className="search-bar"
@@ -112,12 +112,11 @@ const Weather = () => {
             <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
         </motion.div>
 
-        {weatherData?<>
-        
-      
-    
+    {weatherData && (
+    <>
         <img src={weatherData.icon} alt="" className='weather-icon'/>
         <p className='temperature'>{weatherData.temperature}°C</p>
+        <p className="feels-like">Feels Like {weatherData.feelsLike}°C</p>
         <p className='location'>{weatherData.location}</p>
         <div className="weather-data">
             <div className="column">
@@ -136,12 +135,16 @@ const Weather = () => {
             </div>
         </div>
 
-        
+    </>
+        )}
 
-        </>:<></>}
 
-    </motion.div>
-  )
+
+        <footer className="footer">
+            <p> © {new Date().getFullYear()}WeatherApp. All rights reserved. </p>
+        </footer>
+
+    </motion.div>  );
 }
 
 export default Weather
