@@ -108,7 +108,7 @@ const Weather = () => {
         
         >
 
-            <input ref={inputRef} type="text" placeholder='Search City'/>
+            <input ref={inputRef} type="text" placeholder='Search City'onKeyDown={(event)=>{ if (event.key=== 'Enter'){search(inputRef.current.value);}}}/>
             <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
         </motion.div>
 
