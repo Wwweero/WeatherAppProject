@@ -13,5 +13,26 @@
   min-height: 100vh;
   display: grid;
   background:#071952 ;
+  flex-grow: 1;
 
+}
+
+body, html {
+
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .app {
+    padding: 10px;
+  }
+
+  .some-container {
+    flex-direction: column; /* Make sure containers stack properly */
+  }
+
+  .text {
+    font-size: 14px; /* Reduce text size for readability */
+  }
 }
