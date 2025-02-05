@@ -11,18 +11,14 @@ import snow_icon from '../assets/snow.png'
 import sunny_icon from '../assets/sunny.png'
 import wind_icon from '../assets/wind.png'
 
+
+
+
 const Weather = () => {
 
     const inputRef = useRef()
     const [weatherData, setWeatherData] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
-
-    const toggleDarkMode =() => {
-        setDarkMode(!darkMode);
-        document.body.classList.toggle("dark-mode");
-    };
-
-
+    
 
     const allIcons = {
         "01d": clear_icon,
@@ -52,7 +48,8 @@ const Weather = () => {
         }
         
         try{
-            const url= `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${import.meta.env.VITE_APP_ID}`;
+            const url = `http://localhost:5001/weather?city=${city}`;
+
 
             const response = await fetch(url);
             const data = await response.json();
@@ -84,21 +81,41 @@ const Weather = () => {
 
     },[]); 
 
-    
+
     
     
     
 
   return (
     
-    <div className='weather'>
-        <div className="search-bar">
+    <motion.div 
+    className='weather'
+    initial={{opacity: 0}}
+    animate={{opacity: 1}}
+    transition={{duration: 0.5}}
+    
+    >
+
+        
+        
+
+
+        <motion.div 
+        className="search-bar"
+        initial={{y: -20}}
+        animate={{y: 0}}
+        transition={{duration: 0.5}}
+        
+        >
+
             <input ref={inputRef} type="text" placeholder='Search City'/>
             <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
-        </div>
+        </motion.div>
+
         {weatherData?<>
         
-        
+      
+    
         <img src={weatherData.icon} alt="" className='weather-icon'/>
         <p className='temperature'>{weatherData.temperature}°C</p>
         <p className='location'>{weatherData.location}</p>
@@ -119,9 +136,11 @@ const Weather = () => {
             </div>
         </div>
 
+        
+
         </>:<></>}
 
-    </div>
+    </motion.div>
   )
 }
 
