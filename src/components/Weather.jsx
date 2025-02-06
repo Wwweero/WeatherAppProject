@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {motion} from "framer-motion"
 import './Weather.css'
+import help_icon from '../assets/help_w.png'
 import search_icon from '../assets/searchoption.png'
 import clear_icon from '../assets/clear.png'
 import clearn_icon from '../assets/clear_night.png'
@@ -25,6 +26,7 @@ const Weather = () => {
     const inputRef = useRef();
     const [weatherData, setWeatherData] = useState(false);
     const[loading, setLoading] = useState(false);
+    const [showHelp, setShowHelp] = useState(false);
     
 
     
@@ -51,6 +53,10 @@ const Weather = () => {
 
     }
 
+
+    
+
+
     const search = async (city) =>{
 
         if(city === ""){
@@ -64,7 +70,7 @@ const Weather = () => {
             const url = `https://weatherappproject-bzl0.onrender.com/weather?city=${city}`;
 
 
-            const response = await fetch(url);
+            const response = await fetch(url); 
             const data = await response.json();
 
             if(!response.ok){
@@ -72,7 +78,7 @@ const Weather = () => {
                 setLoading(false);
                 return;
             }
-            console.log(data);
+            console.log(data); //Shows data in the console
             const icon=allIcons[data.weather[0].icon] || clear_icon;
             setWeatherData({
                 humidity: data.main.humidity,
@@ -107,7 +113,6 @@ const Weather = () => {
     
 
   return (
-    
     <motion.div 
     className='weather'
     initial={{opacity: 0}}
@@ -129,7 +134,26 @@ const Weather = () => {
             <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
         </motion.div>
 
-        {loading && <p className="loading-text">Loading...</p>}
+        {showHelp && (
+                    <div className="help-popup">
+                        <p> Need help? If the app is not working:</p>
+                        <ul>
+                            <li>✔ Check your internet connection.</li>
+                            <li>✔ Give it a minute to load.</li>
+                            <li>✔ Try searching for a valid city name.</li>
+                            <li>✔ If the weather isn't loading, the API may be down.</li>
+                        </ul>
+
+                        <p className="contact-text">
+                            ✉️ Still need help? <br/>
+                            <a href="mailto:weronikapackow@weatherapp.com" className="contact-link">Contact Us</a>
+
+                        </p>
+                        <button className="close-btn" onClick={() => setShowHelp(false)}>Close</button>
+                    </div> )}
+
+
+    {loading && (<p className="loading-text">Loading...</p>)}
 
     {weatherData && (
     <>
@@ -157,13 +181,18 @@ const Weather = () => {
     </>
         )}
 
-
+        <img src={help_icon} alt="Help" className="help-icon" onClick={() => setShowHelp(true)}/>
 
         <footer className="footer">
             <p> © {new Date().getFullYear()}WeatherApp. All rights reserved. </p>
         </footer>
 
     </motion.div>  );
+
+
+
 }
+
+
 
 export default Weather

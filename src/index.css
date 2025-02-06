@@ -29,11 +29,11 @@ body, html {
   }
 
   .some-container {
-    flex-direction: column; /* Make sure containers stack properly */
+    flex-direction: column; /* Makes sure containers stack properly */
   }
 
   .text {
-    font-size: 14px; /* Reduce text size for readability */
+    font-size: 14px; /* Reduces text size for readability */
   }
 }
 

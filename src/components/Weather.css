@@ -11,6 +11,8 @@
     
 }
 
+
+
 .loading-text{
     font-size: 20px;
     font-weight: bold;
@@ -101,6 +103,86 @@
     margin-top: 10px;
 }
 
+/* Help (?) Icon  */
+.help-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.help-icon:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Help Popup */
+.help-popup {
+    position: fixed;
+    bottom: 80px;  /* Appears just above the icon */
+    right: 20px;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    font-size: 14px;
+    z-index: 1001;
+}
+
+.help-popup ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.help-popup ul li{
+    margin-bottom: 8px;
+}
+
+/* Contact Section in Help Popup */
+.contact-text {
+    font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+/* Email Link Styling */
+.contact-link {
+    color: #0B666A; /* Blue color */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    text-decoration: none;
+    color: #35A29F; /* Darker blue on hover */
+}
+
+
+/* Close Button */
+.close-btn {
+    background: #0B666A;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.close-btn:hover {
+    background: #35A29F;
+}
+
 
 .footer{
     position: absolute;
@@ -160,6 +242,39 @@
         color: #35A29F;
         opacity: 0.8;
     }
+
+
+
+    .help-popup {
+        width: 90%; /* Adjust width */
+        left: 50%;
+        transform: translateX(-50%); /* Center it */
+        bottom: 60px; /* Move it up */
+    }
+
+
+    .help-icon {
+        width: 35px;
+        height: 35px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+/* 🔹 Contact Link Adjustments */
+    .contact-text {
+        font-size: 14px;
+        text-align: center;
+    }
+
+/* 🔹 Make Close Button Bigger for Mobile */
+    .close-btn {
+        padding: 10px 15px;
+        font-size: 16px;
+     width: 100%;
+    }
+
+
+
 }
 
 

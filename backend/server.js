@@ -1,4 +1,4 @@
-require("dotenv").config(); // Load environment variables
+require("dotenv").config(); // Loads environment variables
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
@@ -6,8 +6,8 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(cors()); // Enable CORS to allow frontend requests
-app.use(express.json()); // Allow JSON parsing
+app.use(cors()); // Enables CORS to allow frontend requests
+app.use(express.json()); // Allows JSON parsing
 
 
 console.log("Server script is running");
@@ -26,19 +26,19 @@ app.get("/weather", async (req, res) => {
 
     const currentTime = Date.now();
 
-    // Check if city is in cache & not expired
+    // Checks if city is in cache & not expired
     if (cache[city] && currentTime - cache[city].timestamp < CACHE_DURATION) {
         console.log(`Serving from cache: ${city}`);
         return res.json(cache[city].data);
     }
 
     try {
-        // Fetch new data from OpenWeather API
+        // Fetches new data from OpenWeather API
         const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`
         );
 
-        //  Save data to cache
+        //  Saves data to cache
         cache[city] = {
             data: response.data,
             timestamp: Date.now(),
