@@ -150,6 +150,16 @@
         width: 40px;
         padding: 10px;
     }
+
+    .footer{
+        margin-top: 20px;
+        position:relative;
+        padding: 10px;
+        font-size: 14px;
+        text-align: center;
+        color: #35A29F;
+        opacity: 0.8;
+    }
 }
 
 
