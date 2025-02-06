@@ -67,7 +67,7 @@ const Weather = () => {
         setLoading(true);
         
         try{
-            const url = `https://weatherappproject-bzl0.onrender.com/weather?city=${city}`;
+            const url = `https://weatherappproject-bzl0.onrender.com/weather?city=${city}&timestamp=${new Date().getTime()}`;
 
 
             const response = await fetch(url); 
