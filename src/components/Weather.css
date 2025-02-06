@@ -11,6 +11,14 @@
     
 }
 
+.loading-text{
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0;
+    color: #fff;
+    animation: fadeIn 1s infinite alternate;
+}
+
 
 .search-bar{
     display: flex;
@@ -25,18 +33,21 @@
     outline: none;
     border-radius: 40px;
     padding-left: 25px;
-    color: #626262;
-    background: #ebfffc;
+    color: #fff;
+    background: #0B666A;
+    opacity: 1;
     font-size: 18px;
     flex-grow: 1;
     width: 80%;
 }
 
+
 .search-bar img{
     width:50px;
     padding: 15px;
     border-radius: 50%;
-    background: #ebfffc;
+    background: #0B666A;
+    opacity: 1;
     cursor: pointer;
 }
 
@@ -92,12 +103,22 @@
 
 
 .footer{
-    margin-top: 20px;
-    padding: 10px;
+    position: absolute;
+    bottom: 10px;
     font-size: 14px;
     text-align: center;
     color:#35A29F;
     opacity: 0.8;
+}
+
+@keyframes fedIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+
 }
 
 @media screen and (max-width: 600px) {
