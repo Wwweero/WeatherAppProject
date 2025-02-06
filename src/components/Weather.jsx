@@ -27,6 +27,7 @@ const Weather = () => {
     const [weatherData, setWeatherData] = useState(false);
     const[loading, setLoading] = useState(false);
     const [showHelp, setShowHelp] = useState(false);
+    const [locationError, setLocationError] = useState(false);
     
 
     
@@ -65,6 +66,7 @@ const Weather = () => {
         }
 
         setLoading(true);
+        setLocationError(false);
         
         try{
             const url = `https://weatherappproject-bzl0.onrender.com/weather?city=${city}&timestamp=${new Date().getTime()}`;
@@ -74,10 +76,11 @@ const Weather = () => {
             const data = await response.json();
 
             if(!response.ok){
-                alert(data.message);
+                setLocationError("City not found or there was an issue with the API. Please try again. ");
                 setLoading(false);
                 return;
             }
+
             console.log(data); //Shows data in the console
             const icon=allIcons[data.weather[0].icon] || clear_icon;
             setWeatherData({
@@ -87,11 +90,15 @@ const Weather = () => {
                 feelsLike: Math.floor(data.main.feels_like),
                 location: data.name,
                 icon: icon
-            })
+            });
+
+            inputRef.current.value = "";
 
         } catch (error) {
             setWeatherData(false);
+            setLocationError("Unable to fetch weather data. Please check your connection or try again later."); //Error state for fetch issues
             console.error("Unable to fetch weather data. Try again later.");
+            
         } finally {
             setLoading(false);
         }
@@ -119,7 +126,15 @@ const Weather = () => {
     animate={{opacity: 1}}
     transition={{duration: 0.5}}
     
-    >
+    > 
+
+        {loading && (
+            <div className="loading-overlay">
+                <div className="spinner"></div>
+                <p>Loading...</p>
+            </div>
+        )
+        }
 
 
         <motion.div 
@@ -133,6 +148,10 @@ const Weather = () => {
             <input ref={inputRef} type="text" placeholder='Search City'onKeyDown={(event)=>{ if (event.key=== 'Enter'){search(inputRef.current.value);}}}/>
             <img src={search_icon} alt="" onClick={()=>search(inputRef.current.value)}/>
         </motion.div>
+
+        {locationError && (
+            <p className= "error-message">Sorry, we couldn't find that city. Please check the name or try again later.</p> //UI message
+        )}
 
         {showHelp && (
                     <div className="help-popup">
@@ -181,7 +200,7 @@ const Weather = () => {
     </>
         )}
 
-        <img src={help_icon} alt="Help" className="help-icon" onClick={() => setShowHelp(true)}/>
+        <img src={help_icon} alt="Help" className="help-icon" onClick={() => setShowHelp(true)}/> 
 
         <footer className="footer">
             <p> © {new Date().getFullYear()}WeatherApp. All rights reserved. </p>
